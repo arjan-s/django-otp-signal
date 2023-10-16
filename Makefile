@@ -15,4 +15,4 @@ upload:
 clean:
 	-rm -r build
 	-rm -r dist
-	-rm -r src/django_otp_messagebird.egg-info
+	-rm -r src/django_otp_signal.egg-info

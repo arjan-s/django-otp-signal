@@ -1,4 +1,4 @@
-django-otp-messagebird
+django-otp-signal
 =================
 
 .. include:: ../../README.rst
@@ -7,9 +7,9 @@ django-otp-messagebird
 Installation
 ------------
 
-django-otp-messagebird can be installed via pip::
+django-otp-signal can be installed via pip::
 
-    pip install django-otp-messagebird
+    pip install django-otp-signal
 
 
 Once installed it should be added to INSTALLED_APPS after django_otp core::
@@ -21,14 +21,14 @@ Once installed it should be added to INSTALLED_APPS after django_otp core::
         'django_otp.plugins.otp_hotp',
         'django_otp.plugins.otp_static',
 
-        'otp_messagebird',
+        'otp_signal',
     ]
 
 
-MessageBird SMS Devices
-------------------
+Signal Devices
+--------------
 
-.. autoclass:: otp_messageBird.models.MessageBirdSMSDevice
+.. autoclass:: otp_signal.models.SignalDevice
     :members:
 
 
@@ -39,100 +39,85 @@ The following :class:`~django.contrib.admin.ModelAdmin` subclass is registered
 with the default admin site. We recommend its use with custom admin sites as
 well:
 
-.. autoclass:: otp_messagebird.admin.MessageBirdSMSDeviceAdmin
+.. autoclass:: otp_signal.admin.SignalDeviceAdmin
 
 
 Settings
 --------
 
-.. setting:: OTP_MESSAGEBIRD_ACCESS_KEY
+.. setting:: OTP_SIGNAL_API_SERVER
 
-**OTP_MESSAGEBIRD_ACCESS_KEY**
-
-Default: ``None``
-
-Your MessageBird API key.
-
-
-.. setting:: OTP_MESSAGEBIRD_SMS_CHALLENGE_MESSAGE
-
-**OTP_MESSAGEBIRD_SMS_CHALLENGE_MESSAGE**
-
-Default: ``"Sent by SMS"``
-
-The message returned by
-:meth:`~otp_messagebird.models.MessageBirdSMSDevice.generate_challenge`. This may contain
-``'{token}'``, which will be replaced by the token. This completely negates any
-security benefit to the device, but it's handy for development, especially in
-combination with :setting:`OTP_MESSAGEBIRD_NO_DELIVERY`.
-
-
-.. setting:: OTP_MESSAGEBIRD_VOICE_CHALLENGE_MESSAGE
-
-**OTP_MESSAGEBIRD_VOICE_CHALLENGE_MESSAGE**
-
-Default: ``"Phone call initiated"``
-
-The message returned by
-:meth:`~otp_messagebird.models.MessageBirdVoiceDevice.generate_challenge`. This may contain
-``'{token}'``, which will be replaced by the token. This completely negates any
-security benefit to the device, but it's handy for development, especially in
-combination with :setting:`OTP_MESSAGEBIRD_NO_DELIVERY`.
-
-
-.. setting:: OTP_MESSAGEBIRD_FROM
-
-**OTP_MESSAGEBIRD_FROM**
+**OTP_SIGNAL_API_SERVER**
 
 Default: ``None``
 
-A string containing the sender of the SMS, with a maximum length of 11 characters.
+Base URL of the Signal CLI REST API server.
 
 
-.. setting:: OTP_MESSAGEBIRD_NO_DELIVERY
+.. setting:: OTP_SIGNAL_NUMBER
 
-**OTP_MESSAGEBIRD_NO_DELIVERY**
+**OTP_SIGNAL_NUMBER**
+
+Default: ``None``
+
+The mobile phone number registered with Signal.
+
+
+.. setting:: OTP_SIGNAL_VERIFY_SSL
+
+**OTP_SIGNAL_VERIFY_SSL**
+
+Default: ``True``
+
+Tells the `requests` module whether to verify the HTTPS certificate or not.
+
+
+.. setting:: OTP_SIGNAL_CHALLENGE_MESSAGE
+
+**OTP_SIGNAL_CHALLENGE_MESSAGE**
+
+Default: ``"Sent by Signal"``
+
+The message returned by
+:meth:`~otp_signal.models.SignalDevice.generate_challenge`. This may contain
+``'{token}'``, which will be replaced by the token. This completely negates any
+security benefit to the device, but it's handy for development, especially in
+combination with :setting:`OTP_SIGNAL_NO_DELIVERY`.
+
+
+.. setting:: OTP_SIGNAL_NO_DELIVERY
+
+**OTP_SIGNAL_NO_DELIVERY**
 
 Default: ``False``
 
-Send tokens to the 'otp_messagebird.models' logger instead of delivering them by SMS.
+Send tokens to the 'otp_signal.models' logger instead of delivering them by Signal.
 Useful for development.
 
 
-.. setting:: OTP_MESSAGEBIRD_SMS_TOKEN_TEMPLATE
+.. setting:: OTP_SIGNAL_TOKEN_TEMPLATE
 
-**OTP_MESSAGEBIRD_SMS_TOKEN_TEMPLATE**
+**OTP_SIGNAL_TOKEN_TEMPLATE**
 
 Default: ``"{token}"``
 
-A string template for generating the token SMS message. By default, this is just the
+A string template for generating the token message. By default, this is just the
 token itself, but you can customize it. The template will be rendered with
 Python string formatting (``template.format(token=token)``).
 
 
-.. setting:: OTP_MESSAGEBIRD_VOICE_TOKEN_TEMPLATE
+.. setting:: OTP_SIGNAL_TOKEN_VALIDITY
 
-**OTP_MESSAGEBIRD_VOICE_TOKEN_TEMPLATE**
-
-Default: ``"{token}"``
-
-A string template for generating the token voice message. By default, this is just the
-token itself, but you can customize it. The template will be rendered with
-Python string formatting (``template.format(token=token)``).
-
-
-.. setting:: OTP_MESSAGEBIRD_TOKEN_VALIDITY
-
-**OTP_MESSAGEBIRD_TOKEN_VALIDITY**
+**OTP_SIGNAL_TOKEN_VALIDITY**
 
 Default: ``30``
 
 The number of seconds for which a delivered token will be valid.
 
 
-.. setting:: OTP_MESSAGEBIRD_THROTTLE_FACTOR
+.. setting:: OTP_SIGNAL_THROTTLE_FACTOR
 
-**OTP_MESSAGEBIRD_THROTTLE_FACTOR**
+**OTP_SIGNAL_THROTTLE_FACTOR**
 
 Default: ``1``
 

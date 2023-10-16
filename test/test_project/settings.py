@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django_otp",
-    "otp_messagebird",
+    "otp_signal",
 ]
 
 MIDDLEWARE = [
@@ -52,3 +52,5 @@ TEMPLATES = [
 SECRET_KEY = "PWuluw4x48GkT7JDPzlDQsBJC8pjIIiqodW9MuMYcU315YEkGJL41i5qooJsg3Tt"
 
 ROOT_URLCONF = "test_project.urls"
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

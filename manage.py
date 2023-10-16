@@ -14,6 +14,7 @@ import sys
 
 
 if __name__ == "__main__":
+    site.addsitedir('src')
     site.addsitedir('test')
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'test_project.settings')
 

@@ -9,31 +9,31 @@ from freezegun import freeze_time
 from .conf import settings
 
 
-class MessageBirdDeviceMixin:
+class SignalDeviceMixin:
     def setUp(self):
         try:
-            alice = self.create_user('alice', 'password')
-            bob = self.create_user('bob', 'password')
+            alice = self.create_user("alice", "password")
+            bob = self.create_user("bob", "password")
         except IntegrityError:
             self.skipTest("Unable to create test users.")
         else:
-            self.device = alice.messagebirdsmsdevice_set.create(number='test')
-            self.device2 = bob.messagebirdsmsdevice_set.create(number='test')
+            self.device = alice.signaldevice_set.create(number="test")
+            self.device2 = bob.signaldevice_set.create(number="test")
 
 
 @override_settings(
-    OTP_MESSAGEBIRD_NO_DELIVERY=True,
-    OTP_MESSAGEBIRD_SMS_CHALLENGE_MESSAGE='{token}',
-    OTP_MESSAGEBIRD_THROTTLE_FACTOR=0,
+    OTP_SIGNAL_NO_DELIVERY=True,
+    OTP_SIGNAL_CHALLENGE_MESSAGE="{token}",
+    OTP_SIGNAL_THROTTLE_FACTOR=0,
 )
-class TestMessageBirdSMS(MessageBirdDeviceMixin, TestCase):
+class TestSignalMessage(SignalDeviceMixin, TestCase):
     def setUp(self):
         super().setUp()
 
         self._delivered = None
 
     def test_instant(self):
-        """ Verify a code the instant it was generated. """
+        """Verify a code the instant it was generated."""
         with freeze_time():
             token = self.device.generate_challenge()
             ok = self.device.verify_token(token)
@@ -41,25 +41,25 @@ class TestMessageBirdSMS(MessageBirdDeviceMixin, TestCase):
         self.assertTrue(ok)
 
     def test_barely_made_it(self):
-        """ Verify a code at the last possible second. """
+        """Verify a code at the last possible second."""
         with freeze_time() as frozen_time:
             token = self.device.generate_challenge()
-            frozen_time.tick(delta=(settings.OTP_MESSAGEBIRD_TOKEN_VALIDITY - 1))
+            frozen_time.tick(delta=(settings.OTP_SIGNAL_TOKEN_VALIDITY - 1))
             ok = self.device.verify_token(token)
 
         self.assertTrue(ok)
 
     def test_too_late(self):
-        """ Try to verify a code one second after it expires. """
+        """Try to verify a code one second after it expires."""
         with freeze_time() as frozen_time:
             token = self.device.generate_challenge()
-            frozen_time.tick(delta=(settings.OTP_MESSAGEBIRD_TOKEN_VALIDITY + 1))
+            frozen_time.tick(delta=(settings.OTP_SIGNAL_TOKEN_VALIDITY + 1))
             ok = self.device.verify_token(token)
 
         self.assertFalse(ok)
 
     def test_code_reuse(self):
-        """ Try to verify the same code twice. """
+        """Try to verify the same code twice."""
         with freeze_time():
             token = self.device.generate_challenge()
             ok1 = self.device.verify_token(token)
@@ -76,14 +76,16 @@ class TestMessageBirdSMS(MessageBirdDeviceMixin, TestCase):
         self.assertFalse(ok)
 
     @override_settings(
-        OTP_MESSAGEBIRD_NO_DELIVERY=False,
-        OTP_MESSAGEBIRD_SMS_TOKEN_TEMPLATE='Token is {token}',
+        OTP_SIGNAL_NO_DELIVERY=False,
+        OTP_SIGNAL_TOKEN_TEMPLATE="Token is {token}",
     )
     def test_format(self):
-        with mock.patch('otp_messagebird.models.MessageBirdSMSDevice._deliver_token', self._deliver_token):
+        with mock.patch(
+            "otp_signal.models.SignalDevice._deliver_token", self._deliver_token
+        ):
             self.device.generate_challenge()
 
-        self.assertEqual('Token is {}'.format(self.device.token), self._delivered)
+        self.assertEqual("Token is {}".format(self.device.token), self._delivered)
 
     #
     # Utilities
@@ -94,10 +96,10 @@ class TestMessageBirdSMS(MessageBirdDeviceMixin, TestCase):
 
 
 @override_settings(
-    OTP_MESSAGEBIRD_NO_DELIVERY=True,
-    OTP_MESSAGEBIRD_THROTTLE_FACTOR=1,
+    OTP_SIGNAL_NO_DELIVERY=True,
+    OTP_SIGNAL_THROTTLE_FACTOR=1,
 )
-class ThrottlingTestCase(MessageBirdDeviceMixin, ThrottlingTestMixin, TestCase):
+class ThrottlingTestCase(SignalDeviceMixin, ThrottlingTestMixin, TestCase):
     def valid_token(self):
         if self.device.token is None:
             self.device.generate_token()

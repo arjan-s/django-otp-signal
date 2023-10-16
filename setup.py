@@ -4,15 +4,15 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name="django-otp-messagebird",
-    version="0.2.1",
-    description="A django-otp plugin that delivers tokens via MessageBird's SMS service.",
+    name="django-otp-signal",
+    version="0.1.0",
+    description="A django-otp plugin that delivers tokens via Signal",
     author="arjan5",
-    author_email="arjan.schrijver@foxcrypto.com",
-    url="https://github.com/arjan-s/django-otp-messagebird",
+    author_email="github@anymore.nl",
+    url="https://github.com/arjan-s/django-otp-signal",
     project_urls={
-        "Documentation": "https://django-otp-messagebird.readthedocs.io/",
-        "Source": "https://github.com/arjan-s/django-otp-messagebird",
+        "Documentation": "https://django-otp-signal.readthedocs.io/",
+        "Source": "https://github.com/arjan-s/django-otp-signal",
     },
     license="BSD",
     classifiers=[
@@ -27,5 +27,5 @@ setup(
     ],
     package_dir={"": "src"},
     packages=find_packages(where="src"),
-    install_requires=["django-otp >= 0.9.2", "messagebird"],
+    install_requires=["django-otp >= 0.9.2", "pysignalclirestapi >= 0.3.21"],
 )

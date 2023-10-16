@@ -54,7 +54,7 @@ django.conf.settings.configure(
         'django.contrib.messages',
 
         'django_otp',
-        'otp_messagebird',
+        'otp_signal',
     ]
 )
 django.setup()
@@ -79,15 +79,15 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-otp-messagebird'
-copyright = u'2020, Arjan Schrijver'
+project = "django-otp-signal"
+copyright = "2023, Arjan Schrijver"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = '0.2.1'
+release = "0.1.0"
 
 # The short X.Y version.
 version = '.'.join(release.split('.')[:2])
@@ -204,7 +204,7 @@ html_theme = 'default'
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'django-otp-messagebirddoc'
+htmlhelp_basename = 'django-otp-signaldoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -223,7 +223,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ('index', 'django-otp-messagebird.tex', u'django-otp-messagebird Documentation',
+    ('index', 'django-otp-signal.tex', u'django-otp-signal Documentation',
      'Arjan Schrijver', 'manual'),
 ]
 
@@ -253,7 +253,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django-otp-messagebird', u'django-otp-messagebird Documentation',
+    ('index', 'django-otp-signal', u'django-otp-signal Documentation',
      [u'Arjan Schrijver'], 1)
 ]
 
@@ -267,8 +267,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'django-otp-messagebird', u'django-otp-messagebird Documentation',
-     'Arjan Schrijver', 'django-otp-messagebird', 'One line description of project.',
+    ('index', 'django-otp-signal', u'django-otp-signal Documentation',
+     'Arjan Schrijver', 'django-otp-signal', 'One line description of project.',
      'Miscellaneous'),
 ]
 

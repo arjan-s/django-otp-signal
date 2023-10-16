@@ -10,15 +10,14 @@ class Settings(object):
     """
 
     _defaults = {
-        "OTP_MESSAGEBIRD_ACCESS_KEY": None,
-        "OTP_MESSAGEBIRD_SMS_CHALLENGE_MESSAGE": "Sent by SMS",
-        "OTP_MESSAGEBIRD_VOICE_CHALLENGE_MESSAGE": "Phone call initiated",
-        "OTP_MESSAGEBIRD_FROM": None,
-        "OTP_MESSAGEBIRD_NO_DELIVERY": False,
-        "OTP_MESSAGEBIRD_SMS_TOKEN_TEMPLATE": "{token}",
-        "OTP_MESSAGEBIRD_VOICE_TOKEN_TEMPLATE": "{token}",
-        "OTP_MESSAGEBIRD_TOKEN_VALIDITY": 30,
-        "OTP_MESSAGEBIRD_THROTTLE_FACTOR": 1,
+        "OTP_SIGNAL_API_SERVER": None,
+        "OTP_SIGNAL_NUMBER": None,
+        "OTP_SIGNAL_CHALLENGE_MESSAGE": "Sent via Signal",
+        "OTP_SIGNAL_VERIFY_SSL": True,
+        "OTP_SIGNAL_NO_DELIVERY": False,
+        "OTP_SIGNAL_TOKEN_TEMPLATE": "{token}",
+        "OTP_SIGNAL_TOKEN_VALIDITY": 30,
+        "OTP_SIGNAL_THROTTLE_FACTOR": 1,
     }
 
     def __getattr__(self, name):
