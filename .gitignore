@@ -1,0 +1,11 @@
+/MANIFEST
+/build/
+/dist/
+/docs/build/
+**/__pycache__/
+*.egg-info/
+*.pyc
+.coverage
+.mypy_cache/
+.tox/
+.vscode/
