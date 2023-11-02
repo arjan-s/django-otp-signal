@@ -9,3 +9,7 @@
 .mypy_cache/
 .tox/
 .vscode/
+.direnv/
+.devenv*
+devenv.local.nix
+.pre-commit-config.yaml

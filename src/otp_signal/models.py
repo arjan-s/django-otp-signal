@@ -3,11 +3,10 @@ import logging
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 
-from django_otp.models import SideChannelDevice, ThrottlingMixin
 import pysignalclirestapi
+from django_otp.models import SideChannelDevice, ThrottlingMixin
 
 from .conf import settings
-
 
 logger = logging.getLogger(__name__)
 
@@ -104,5 +103,5 @@ class SignalDevice(ThrottlingMixin, SideChannelDevice):
         try:
             client.send_message(message=str(token), recipients=[self.number])
         except pysignalclirestapi.SignalCliRestApiError as e:
-            logger.exception("Error sending token via Signal: {0}".format(e))
+            logger.exception("Error sending token via Signal: {}".format(e))
             raise

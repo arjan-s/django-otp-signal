@@ -9,7 +9,12 @@ def project_path(path):
 
 DEBUG = True
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:",}}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
+    }
+}
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -37,7 +42,9 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "APP_DIRS": True,
-        "DIRS": [project_path("templates"),],
+        "DIRS": [
+            project_path("templates"),
+        ],
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",

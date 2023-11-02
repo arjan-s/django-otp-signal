@@ -2,7 +2,7 @@ import django.conf
 import django.test.utils
 
 
-class Settings(object):
+class Settings:
     """
     This is a simple class to take the place of the global settings object. An
     instance will contain all of our settings as attributes, with default
