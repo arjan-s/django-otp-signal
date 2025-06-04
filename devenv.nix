@@ -2,8 +2,8 @@
   languages = {
     python.enable = true;
   };
-  packages = with pkgs; [gnumake twine] ++ (with python3Packages; [setuptools wheel]);
-  pre-commit.hooks = {
+  packages = with pkgs; [gnumake twine pipenv] ++ (with python3Packages; [setuptools wheel]);
+  git-hooks.hooks = {
     alejandra.enable = true;
     black.enable = true;
     deadnix.enable = true;
